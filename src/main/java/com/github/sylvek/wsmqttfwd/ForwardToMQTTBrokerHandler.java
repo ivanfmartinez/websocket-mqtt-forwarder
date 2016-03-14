@@ -1,4 +1,4 @@
-package com.deveryware.mqtt;
+package com.github.sylvek.wsmqttfwd;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;

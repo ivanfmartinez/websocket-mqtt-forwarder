@@ -1,4 +1,4 @@
-package com.deveryware.mqtt;
+package com.github.sylvek.wsmqttfwd;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +69,7 @@ public class Server {
     public static void main(String[] args)
     {
         if (args.length != 1) {
-            System.out.println("java -jar ... com.deveryware.mqtt.Server 192.168.0.4");
+            System.out.println("java -jar wsmqttfwd.jar com.github.sylvek.wsmqttfwd.Server localhost");
             System.exit(1);
         }
 

@@ -13,7 +13,7 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package com.deveryware.mqtt.message;
+package com.github.sylvek.wsmqttfwd.message;
 
 import java.nio.ByteBuffer;
 
@@ -41,7 +41,7 @@ public class PublishMessage extends AbstractMessage {
 
     public PublishMessage()
     {
-        m_messageType = AbstractMessage.PUBLISH;
+        m_messageType = PUBLISH;
     }
 
     public String getTopicName()

@@ -1,12 +1,12 @@
-package com.deveryware.mqtt;
+package com.github.sylvek.wsmqttfwd;
 
-import com.deveryware.mqtt.decoder.ConnectDecoder;
-import com.deveryware.mqtt.decoder.PublishDecoder;
-import com.deveryware.mqtt.decoder.SubscribeDecoder;
-import com.deveryware.mqtt.decoder.Utils;
-import com.deveryware.mqtt.message.ConnectMessage;
-import com.deveryware.mqtt.message.PublishMessage;
-import com.deveryware.mqtt.message.SubscribeMessage;
+import com.github.sylvek.wsmqttfwd.decoder.ConnectDecoder;
+import com.github.sylvek.wsmqttfwd.decoder.PublishDecoder;
+import com.github.sylvek.wsmqttfwd.decoder.SubscribeDecoder;
+import com.github.sylvek.wsmqttfwd.message.PublishMessage;
+import com.github.sylvek.wsmqttfwd.message.SubscribeMessage;
+import com.github.sylvek.wsmqttfwd.decoder.Utils;
+import com.github.sylvek.wsmqttfwd.message.ConnectMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

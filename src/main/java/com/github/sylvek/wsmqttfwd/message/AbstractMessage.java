@@ -13,7 +13,7 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package com.deveryware.mqtt.message;
+package com.github.sylvek.wsmqttfwd.message;
 
 /**
  * Basic abstract message for all MQTT protocol messages.

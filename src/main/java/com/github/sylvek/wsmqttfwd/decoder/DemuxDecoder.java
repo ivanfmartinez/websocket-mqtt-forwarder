@@ -13,9 +13,9 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package com.deveryware.mqtt.decoder;
+package com.github.sylvek.wsmqttfwd.decoder;
 
-import com.deveryware.mqtt.message.AbstractMessage;
+import com.github.sylvek.wsmqttfwd.message.AbstractMessage;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.CorruptedFrameException;

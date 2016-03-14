@@ -13,7 +13,7 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package com.deveryware.mqtt.message;
+package com.github.sylvek.wsmqttfwd.message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class SubscribeMessage extends AbstractMessage {
     public SubscribeMessage()
     {
         //Subscribe has always QoS 1
-        m_messageType = AbstractMessage.SUBSCRIBE;
+        m_messageType = SUBSCRIBE;
         m_qos = AbstractMessage.QOSType.LEAST_ONE;
     }
 

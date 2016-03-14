@@ -13,10 +13,10 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package com.deveryware.mqtt.decoder;
+package com.github.sylvek.wsmqttfwd.decoder;
 
-import com.deveryware.mqtt.message.AbstractMessage;
-import com.deveryware.mqtt.message.SubscribeMessage;
+import com.github.sylvek.wsmqttfwd.message.AbstractMessage;
+import com.github.sylvek.wsmqttfwd.message.SubscribeMessage;
 
 import java.io.UnsupportedEncodingException;
 
