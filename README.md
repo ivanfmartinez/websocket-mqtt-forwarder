@@ -15,7 +15,14 @@ With this implementation, you are able to customize the authentication by _match
 
 DISCLAMER: this project contains part of [moquette.io](https://github.com/andsel/moquette) especially for decoding MQTT messages.
 
-## How to use?
+## How to construct it ?
+
+```
+$> mvn clean compile assembly:single
+$> java -jar target/wsmqttfwd-0.1-SNAPSHOT-jar-with-dependencies.jar
+```
+
+## How to use it ?
 
 You just have to implement a Server, init it and start it, like that:
 

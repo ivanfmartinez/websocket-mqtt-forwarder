@@ -69,7 +69,7 @@ public class Server {
     public static void main(String[] args)
     {
         if (args.length != 1) {
-            System.out.println("java -jar wsmqttfwd.jar com.github.sylvek.wsmqttfwd.Server localhost");
+            System.out.println("java -jar wsmqttfwd.jar localhost");
             System.exit(1);
         }
 
