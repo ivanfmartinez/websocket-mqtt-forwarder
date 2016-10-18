@@ -68,13 +68,13 @@ public class Server {
 
     public static void main(String[] args)
     {
-        if (args.length != 1) {
-            System.out.println("java -jar wsmqttfwd.jar localhost");
+        if (args.length != 3) {
+            System.out.println("java -jar wsmqttfwd.jar 8081 localhost 1883");
             System.exit(1);
         }
 
         final Server server = new Server();
-        server.initServer(8081, args[0], 1883, null);
+        server.initServer(Integer.parseInt(args[0]), args[1], Integer.parseInt(args[3]), null);
         server.startServer();
         System.out.println("Websocket to MQTT proxy started");
         //Bind a shutdown hook
