@@ -10,7 +10,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelOption;
 
 /**
- *
  * @author Sylvain Maucourt
  */
 public class ForwardToMQTTBrokerHandler extends ChannelInboundHandlerAdapter {
@@ -44,15 +43,11 @@ public class ForwardToMQTTBrokerHandler extends ChannelInboundHandlerAdapter {
         @Override
         public void channelRead(final ChannelHandlerContext ctx, Object msg)
         {
-            inboundChannel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
-                @Override
-                public void operationComplete(ChannelFuture future)
-                {
-                    if (future.isSuccess()) {
-                        ctx.channel().read();
-                    } else {
-                        future.channel().close();
-                    }
+            inboundChannel.writeAndFlush(msg).addListener((ChannelFutureListener) future -> {
+                if (future.isSuccess()) {
+                    ctx.channel().read();
+                } else {
+                    future.channel().close();
                 }
             });
         }
@@ -84,17 +79,13 @@ public class ForwardToMQTTBrokerHandler extends ChannelInboundHandlerAdapter {
                 .option(ChannelOption.AUTO_READ, false);
         ChannelFuture f = b.connect(this.host, this.port);
         outboundChannel = f.channel();
-        f.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture future)
-            {
-                if (future.isSuccess()) {
-                    // connection complete start to read first data
-                    inboundChannel.read();
-                } else {
-                    // Close the connection if the connection attempt has failed.
-                    inboundChannel.close();
-                }
+        f.addListener((ChannelFutureListener) future -> {
+            if (future.isSuccess()) {
+                // connection complete start to read first data
+                inboundChannel.read();
+            } else {
+                // Close the connection if the connection attempt has failed.
+                inboundChannel.close();
             }
         });
 
@@ -105,16 +96,12 @@ public class ForwardToMQTTBrokerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(final ChannelHandlerContext ctx, Object msg) throws Exception
     {
         if (outboundChannel.isActive()) {
-            outboundChannel.writeAndFlush(msg).addListener(new ChannelFutureListener() {
-                @Override
-                public void operationComplete(ChannelFuture future)
-                {
-                    if (future.isSuccess()) {
-                        // was able to flush out data, start to read the next chunk
-                        ctx.channel().read();
-                    } else {
-                        future.channel().close();
-                    }
+            outboundChannel.writeAndFlush(msg).addListener((ChannelFutureListener) future -> {
+                if (future.isSuccess()) {
+                    // was able to flush out data, start to read the next chunk
+                    ctx.channel().read();
+                } else {
+                    future.channel().close();
                 }
             });
         }
