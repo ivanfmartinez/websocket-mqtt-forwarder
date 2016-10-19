@@ -74,7 +74,7 @@ public class Server {
         }
 
         final Server server = new Server();
-        server.initServer(Integer.parseInt(args[0]), args[1], Integer.parseInt(args[3]), null);
+        server.initServer(Integer.parseInt(args[0]), args[1], Integer.parseInt(args[2]), null);
         server.startServer();
         System.out.println("Websocket to MQTT proxy started");
         //Bind a shutdown hook
