@@ -25,8 +25,6 @@ import io.netty.buffer.ByteBuf;
  */
 public class Utils {
 
-    public static final int MAX_LENGTH_LIMIT = 268435455;
-
     public static final byte VERSION_3_1 = 3;
     public static final byte VERSION_3_1_1 = 4;
 
@@ -120,6 +118,6 @@ public class Utils {
         if (128 <= len && len <= 16383) return 2;
         if (16384 <= len && len <= 2097151) return 3;
         if (2097152 <= len && len <= 268435455) return 4;
-        throw new IllegalArgumentException("value shoul be in the range [0..268435455]");
+        throw new IllegalArgumentException("value should be in the range [0..268435455]");
     }
 }
