@@ -87,7 +87,7 @@ public class Server {
         });
     }
 
-    private void stopServer()
+    protected void stopServer()
     {
         LOG.info("Server stopping...");
 
@@ -109,15 +109,34 @@ public class Server {
         LOG.info("Server stopped");
     }
 
-    private void initServer(final int port, final String mqttHost, final int mqttPort, final AuthenticationHandler.MqttListener mqttListener)
+    protected void initServer(final int port, final String mqttHost, final int mqttPort, final AuthenticationHandler.MqttListener mqttListener)
     {
+        initServer(host, port, mqttHost, mqttPort, mqttListener);
+    }
+    
+    protected void initServer(final String host, final int port, final String mqttHost, final int mqttPort, final AuthenticationHandler.MqttListener mqttListener)
+    {
+        this.host = host;
         this.port = port;
         this.m_mqttBrokerHost = mqttHost;
         this.m_mqttBrokerPort = mqttPort;
         this.m_mqttListerner = mqttListener;
     }
 
-    private void startServer()
+
+    protected void configurePipeline(final ChannelPipeline pipeline) 
+    {
+        pipeline.addLast("httpEncoder", new HttpResponseEncoder());
+        pipeline.addLast("httpDecoder", new HttpRequestDecoder());
+        pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
+        pipeline.addLast("webSocketHandler", new WebSocketServerProtocolHandler("/mqtt", "mqtt, mqttv3.1, mqttv3.1.1"));
+        pipeline.addLast("ws2bytebufDecoder", new WebSocketFrameToByteBufDecoder());
+        pipeline.addLast("bytebuf2wsEncoder", new ByteBufToWebSocketFrameEncoder());
+        pipeline.addLast("filter", new AuthenticationHandler(m_mqttListerner));
+        pipeline.addLast("forward", new ForwardToMQTTBrokerHandler(m_mqttBrokerHost, m_mqttBrokerPort));
+    }
+    
+    protected void startServer()
     {
         LOG.info("Server starting...");
         ServerBootstrap b = new ServerBootstrap();
@@ -131,14 +150,7 @@ public class Server {
                     {
                         ChannelPipeline pipeline = ch.pipeline();
                         try {
-                            pipeline.addLast("httpEncoder", new HttpResponseEncoder());
-                            pipeline.addLast("httpDecoder", new HttpRequestDecoder());
-                            pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
-                            pipeline.addLast("webSocketHandler", new WebSocketServerProtocolHandler("/mqtt", "mqtt, mqttv3.1, mqttv3.1.1"));
-                            pipeline.addLast("ws2bytebufDecoder", new WebSocketFrameToByteBufDecoder());
-                            pipeline.addLast("bytebuf2wsEncoder", new ByteBufToWebSocketFrameEncoder());
-                            pipeline.addLast("filter", new AuthenticationHandler(m_mqttListerner));
-                            pipeline.addLast("forward", new ForwardToMQTTBrokerHandler(m_mqttBrokerHost, m_mqttBrokerPort));
+                            configurePipeline(pipeline);
                         } catch (Throwable th) {
                             LOG.error("Severe error during pipeline creation", th);
                             throw th;
